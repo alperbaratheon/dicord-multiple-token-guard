@@ -13,26 +13,7 @@ let Tokens = settings.tokens.Helpers;
 let danger = false;
 const Bots = global.Bots = [];
 Tokens.forEach(token => {
-    let bot = new Client({
-        fetchAllMembers: true,
-        fetchBans: true,
-        intents: [
-            GatewayIntentBits.GuildBans,
-            GatewayIntentBits.GuildEmojisAndStickers,
-            GatewayIntentBits.GuildIntegrations,
-            GatewayIntentBits.GuildInvites,
-            GatewayIntentBits.GuildMembers,
-            GatewayIntentBits.GuildMessageReactions,
-            GatewayIntentBits.GuildMessageTyping,
-            GatewayIntentBits.GuildMessages,
-            GatewayIntentBits.GuildPresences,
-            GatewayIntentBits.GuildVoiceStates,
-            GatewayIntentBits.GuildWebhooks,
-            GatewayIntentBits.Guilds,
-            GatewayIntentBits.MessageContent,
-        ],
-        partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction, Partials.ThreadMember],
-    })
+    const bot = new Client({ fetchAllMembers: true, intents: [Object.keys(GatewayIntentBits)], partials: [Object.keys(Partials)] })
     bot.on("ready", () => {
         bot.Busy = false;
         bot.Uj = 0;
@@ -73,26 +54,7 @@ function processBot(bot, busy, job, equal = false) {
     Bots[index] = bot;
 }
 
-const client = (global.client = new Client({
-    fetchAllMembers: true,
-    fetchBans: true,
-    intents: [
-        GatewayIntentBits.GuildBans,
-        GatewayIntentBits.GuildEmojisAndStickers,
-        GatewayIntentBits.GuildIntegrations,
-        GatewayIntentBits.GuildInvites,
-        GatewayIntentBits.GuildMembers,
-        GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.GuildMessageTyping,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.GuildPresences,
-        GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildWebhooks,
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.MessageContent,
-    ],
-    partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction, Partials.ThreadMember]
-}));
+const client  = (global.client = new Client({ fetchAllMembers: true, intents: [Object.keys(GatewayIntentBits)], partials: [Object.keys(Partials)] }))
 
 client.on("ready", () => {
     const guild = client.guilds.cache.first();
